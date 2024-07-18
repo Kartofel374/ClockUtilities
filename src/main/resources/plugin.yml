@@ -6,8 +6,13 @@ commands:
   timer:
     description: creates timer starting with specified time
     usage: /timer <time in s> [time in m] [time in h]
-    permission: clockUtilities.timer
+  reloadClockUtil:
+    description: reloads config
+    usage: /reloadClockUtil
 permissions:
   clockUtilities.timer:
     description: allows you to use the command /timer
     default: true
+  clockUtilities.reload:
+    description: allows you to reload config
+    default: false

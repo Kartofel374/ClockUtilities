@@ -1,0 +1,13 @@
+#
+#
+#Config updated for 0.1 version, 18.07.2024
+#
+#
+#configuration for timer
+timer:
+  #number of alarm repeats
+  repeats: 25
+  #delay between repeats (in ms)
+  delay: 250
+  #wait time after alarm ends before scoreboard disappears (in ms, -1 means scoreboard lasts to next update)
+  wait: 10000

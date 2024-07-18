@@ -1,11 +1,6 @@
 package me.ziemniaczek.clockutilities.commands;
 
-import me.ziemniaczek.clockutilities.ClockUtilities;
 import me.ziemniaczek.clockutilities.threads.ScoreboardUpdateTime;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
-import net.kyori.adventure.text.format.TextColor;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,6 +17,10 @@ public class TimerCommand implements CommandExecutor {
             return true;
         }
         Player p = (Player) sender;
+        if(!p.hasPermission("clockUtilities.timer")) {
+            p.sendMessage(ChatColor.RED + "You don't have permission to perform this command!");
+            return true;
+        }
         int h, m, s;
         h=m=s=0;
         try {
@@ -37,15 +36,26 @@ public class TimerCommand implements CommandExecutor {
                     return false;
             }
         } catch (NumberFormatException e) {
-            sender.sendMessage("Time must be an positive integer!");
+            sender.sendMessage(ChatColor.RED + "Time must be an positive integer!");
             return true;
         }
         if ((h+m+s) <= 0 || h < 0 || m < 0 || s < 0) {
-            sender.sendMessage("Time must be an positive integer!");
+            sender.sendMessage(ChatColor.RED + "Time must be an positive integer!");
             return true;
         }
-        ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
-        Scoreboard board = scoreboardManager.getNewScoreboard();
+        if(s > 59) {
+            while (s > 59) {
+                m++;
+                s-=60;
+            }
+        }
+        if(m > 59) {
+            while (m > 59) {
+                h++;
+                m-=60;
+            }
+        }
+        Scoreboard board = p.getScoreboard();
         new ScoreboardUpdateTime(p, board, h, m, s).start();
         return true;
     }
