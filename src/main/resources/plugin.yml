@@ -1,0 +1,13 @@
+name: clockUtilities
+version: '${project.version}'
+main: me.ziemniaczek.clockutilities.ClockUtilities
+api-version: '1.16'
+commands:
+  timer:
+    description: creates timer starting with specified time
+    usage: /timer <time in s> [time in m] [time in h]
+    permission: clockUtilities.timer
+permissions:
+  clockUtilities.timer:
+    description: allows you to use the command /timer
+    default: true
